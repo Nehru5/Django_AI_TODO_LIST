@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    button{
+      background-color: black;
+      color: white;
+      font-weight: bold;
+      margin-bottom: 20px;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <center><h1>TO-DO APP</h1></center>
+
+  <center>
+    <form method="post">
+      {% csrf_token %}
+      <input type="text" placeholder="Enter todo" required name="a">
+      <button>Add TODO</button>
+    </form>
+    <hr>
+  </center>
+  
+
+  <center>
+        {% for i in a %}
+    {% if i.completed %}
+    <strike>{{i.title}}</strike>
+    {% else %}
+    {{i.title}}
+    <a href="{% url 'complete_link' i.id %}"><button>Complete</button></a>
+    {% endif %}
+    <a href="{% url 'delete_link' i.id %}"><button>Delete</button></a> <br>
+  {% endfor %}
+  </center>
+</body>
+</html>
